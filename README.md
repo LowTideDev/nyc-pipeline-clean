@@ -1,9 +1,8 @@
-Perfect — I’ll drop in a cleaned-up README tailored to LowTideDev and nyc_airbnb_clean. Replace your README with this:
-
 # Build an ML Pipeline for Short-Term Rental Prices in NYC
 
 End-to-end, reproducible pipeline to estimate nightly prices for NYC short-term rentals. New data arrives weekly; this pipeline downloads → cleans → checks → splits → trains → (optionally) tests a model, with runs and artifacts tracked in Weights & Biases (W&B) and execution orchestrated by MLflow + Hydra.
 
+https://wandb.ai/wguproject/nyc_airbnb_clean/overview
 ---
 
 ## Quick start
