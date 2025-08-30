@@ -69,6 +69,8 @@ def go(config: DictConfig):
                     "output_description": "Data with outliers and nulls cleaned",
                     "min_price": config["etl"]["min_price"],
                     "max_price": config["etl"]["max_price"],
+                    "apply_nyc_bounds": "true" if config["etl"]["apply_nyc_bounds"] else "false",  # NEW
+
                 },
             )
 
