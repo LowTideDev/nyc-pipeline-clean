@@ -23,6 +23,8 @@ def go(args):
             "output_description": args.output_description,
             "min_price": args.min_price,
             "max_price": args.max_price,
+            "apply_nyc_bounds": args.apply_nyc_bounds,  # NEW
+
         }
     )
 
@@ -35,10 +37,11 @@ def go(args):
     df = df[df["price"].between(args.min_price, args.max_price)].copy()
 
     # proper NYC geofence (rubric follow-up step expects this too)
-    df = df[
-        df["longitude"].between(-74.25, -73.50)
-        & df["latitude"].between(40.5, 41.2)
-    ].copy()
+    if args.apply_nyc_bounds:
+        df = df[
+            df["longitude"].between(-74.25, -73.50)
+            & df["latitude"].between(40.5, 41.2)
+        ].copy()
 
     # last_review to datetime (non-fatal if missing)
     if "last_review" in df.columns:
@@ -100,8 +103,17 @@ def parse_args():
         required=True,
         help="Maximum allowed price; rows above are dropped",
     )
+    parser.add_argument(
+    "--apply_nyc_bounds",
+    type=str,
+    choices=["true", "false"],
+    default="false",
+    help="If 'true', drop rows outside the NYC bounding box",
+    )
+    args = parser.parse_args()
+    args.apply_nyc_bounds = (args.apply_nyc_bounds.lower() == "true")
+    return args
 
-    return parser.parse_args()
 
 
 if __name__ == "__main__":
